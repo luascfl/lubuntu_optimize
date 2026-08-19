@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "total": 4,
+  "remaining": 4,
+  "quality_gates": [
+    "dash -n scripts/zram-monitor.sh",
+    "dash -n zram-monitor.sh",
+    "python3 -m json.tool .context/prd_ralph/prd.json"
+  ],
+  "id": "US-001",
+  "title": "Bootstrap official project context and workflow"
+}

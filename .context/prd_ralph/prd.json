@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "project": "lubuntu_optimize baseline hardening",
+  "overview": "Transform the current README plus monitor script into a reproducible Lubuntu operations kit that aligns ZRAM configuration, monitors memory pressure, and versions the deployment assets needed to run that monitor safely.",
+  "goals": [
+    "Version every host artifact that the README currently describes only in prose",
+    "Keep the solution lightweight for a 4 GiB Lubuntu notebook by using shell and native system tools",
+    "Add planning and validation artifacts so each change can be executed one story at a time with traceability"
+  ],
+  "nonGoals": [
+    "Build a GUI, dashboard, or background daemon",
+    "General desktop tuning outside the ZRAM and memory pressure scope",
+    "Refactor the repository publishing helper unless a later story explicitly targets it"
+  ],
+  "successMetrics": [
+    "A maintainer can install the monitor stack from versioned repository files instead of README prose alone",
+    "A new session can identify the active milestone and next story from .context artifacts alone",
+    "The repository ends with one canonical monitor script path and documented validation commands"
+  ],
+  "openQuestions": [
+    "Should the deployment assets target only Lubuntu 25.04 or stay generic for Debian based systems?",
+    "Should future validation run only locally, or also support a disposable VM target?",
+    "Should the root level duplicate zram-monitor.sh remain temporarily for compatibility during consolidation?"
+  ],
+  "stack": {
+    "framework": "POSIX style shell scripts plus native Linux utilities",
+    "hosting": "Local Lubuntu host",
+    "database": "None",
+    "auth": "Local sudo or root access for host level changes"
+  },
+  "routes": [],
+  "uiNotes": [
+    "No UI is planned",
+    "The maintainer interface is shell commands, repository files, and host logs"
+  ],
+  "dataModel": [
+    {
+      "entity": "MonitorSnapshot",
+      "fields": [
+        "timestamp",
+        "availableMemoryMiB",
+        "swapUsedMiB",
+        "zramctlOutput",
+        "swaponOutput",
+        "alerts"
+      ]
+    },
+    {
+      "entity": "IncidentRecord",
+      "fields": [
+        "timestamp",
+        "alertSummary"
+      ]
+    }
+  ],
+  "importFormat": {
+    "description": "Not applicable. Inputs come from host commands and local configuration files.",
+    "example": {}
+  },
+  "rules": [
+    "The active kernel compression algorithm should match the configured ALGO in /etc/default/zramswap",
+    "Available memory below 500 MiB should create a low memory alert entry",
+    "Swap used above 1024 MiB should create a high swap usage alert entry",
+    "Only one Ralph story may be executed in a cycle"
+  ],
+  "qualityGates": [
+    "dash -n scripts/zram-monitor.sh",
+    "dash -n zram-monitor.sh",
+    "python3 -m json.tool .context/prd_ralph/prd.json"
+  ],
+  "stories": [
+    {
+      "id": "US-001",
+      "title": "Bootstrap official project context and workflow",
+      "status": "done",
+      "dependsOn": [],
+      "description": "As the maintainer, I want canonical .context planning artifacts so each later infrastructure change starts from a tracked milestone and a single selected story.",
+      "acceptanceCriteria": [
+        "Create .context/docs/planning_gsd/PROJECT.md and .context/docs/planning_gsd/STATE.md with one active milestone and one named next story",
+        "Create .context/prd_ralph/README.md and .context/prd_ralph/prd.json as the Ralph source of truth",
+        "Example: a fresh session can open STATE.md and immediately identify the active milestone and next story without reading legacy planning files",
+        "Negative case: if canonical planning files are missing, execution is treated as blocked rather than guessed"
+      ],
+      "startedAt": "2026-05-17T15:24:08.074214+00:00",
+      "completedAt": "2026-05-17T15:31:16.918298+00:00",
+      "updatedAt": "2026-05-17T15:31:16.918271+00:00"
+    },
+    {
+      "id": "US-002",
+      "title": "Version deployment assets for the monitor stack",
+      "status": "open",
+      "dependsOn": [
+        "US-001"
+      ],
+      "description": "As the machine maintainer, I want repository managed systemd and logrotate assets so the monitor stack can be installed repeatably instead of relying on manual prose only.",
+      "acceptanceCriteria": [
+        "Add versioned files for the monitor service, timer, and logrotate configuration under a clear repository path",
+        "Add documented installation steps or an install helper that places those files in the correct host locations",
+        "Example: a maintainer can enable the timer from repository owned files and match the README behavior of running every 10 minutes",
+        "Negative case: installation guidance must fail clearly or document the failure path when a required destination path or binary is missing"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "Add repeatable validation for monitoring and configuration",
+      "status": "open",
+      "dependsOn": [
+        "US-002"
+      ],
+      "description": "As the maintainer, I want lightweight validation commands so I can verify script logic and deployment prerequisites before writing to privileged host paths.",
+      "acceptanceCriteria": [
+        "Add a validation script or command set that checks shell syntax, required binaries, and the expected deployment asset layout",
+        "Document the validation flow in README.md and .context docs",
+        "Example: the validation command passes on a prepared repository checkout before installation",
+        "Negative case: the validation command exits non zero with a readable message when a required file or binary is missing"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "Consolidate duplicate monitor script paths",
+      "status": "open",
+      "dependsOn": [
+        "US-002",
+        "US-003"
+      ],
+      "description": "As the maintainer, I want one canonical monitor script path so future fixes do not drift between duplicate copies.",
+      "acceptanceCriteria": [
+        "Choose one authoritative repository path for the monitor script and update installation and documentation references to match it",
+        "Remove or clearly deprecate the duplicate copy so future edits do not silently diverge",
+        "Example: README.md, install assets, and validation commands all point to the same script path",
+        "Negative case: no deployment path or documentation should still reference the removed duplicate location"
+      ]
+    }
+  ]
+}

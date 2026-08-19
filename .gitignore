@@ -1,0 +1,8 @@
+GITHUB_TOKEN.txt
+mcp_status.txt
+.omp/
+.ralph/
+.context/agents/
+.context/skills/
+fix_*.py
+fix_*.sh

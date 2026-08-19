@@ -1,0 +1,10 @@
+[Unit]
+Description=Set CPU governor to performance
+ConditionPathExistsGlob=/sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'found=0; failed=0; for governor in /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor; do [ -e "$governor" ] || continue; found=1; if ! printf "performance\n" > "$governor"; then failed=1; fi; done; [ "$found" -eq 1 ] && [ "$failed" -eq 0 ]'
+
+[Install]
+WantedBy=multi-user.target

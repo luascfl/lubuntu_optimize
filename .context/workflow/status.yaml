@@ -1,0 +1,36 @@
+project:
+  name: "lubuntu-optimize-baseline"
+  scale: SMALL
+  started: "2026-05-17T15:23:49.090Z"
+  current_phase: E
+
+phases:
+  P:
+    status: filled
+    started_at: "2026-05-17T15:23:49.090Z"
+    completed_at: "2026-05-17T15:31:54.613Z"
+  R:
+    status: skipped
+    reason: "Not required for scale SMALL"
+  E:
+    status: in_progress
+    started_at: "2026-05-17T15:31:54.615Z"
+  V:
+    status: pending
+  C:
+    status: skipped
+    reason: "Not required for scale SMALL"
+
+execution:
+  history:
+    - timestamp: "2026-05-17T15:31:54.615Z"
+      phase: E
+      action: started
+  last_activity: "2026-05-17T15:31:54.615Z"
+  resume_context: "Fase E (Execução) em progresso"
+
+settings:
+  autonomous_mode: true
+  require_plan: false
+  require_approval: false
+

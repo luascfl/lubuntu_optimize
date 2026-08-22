@@ -1023,3 +1023,9 @@ Change applied:
 - Removed `fix_earlyoom.py`; its intended thresholds and child-process matching are declared directly by `memory-guard.sh`.
 - Added `early-oom/memory-guard.sh` to the `tuning` sudo profile and made its self-elevation preserve `--logging-only` and other arguments.
 - Increased `memory-guard-session-log.service` startup timeout to `120s`, which covers slow `journalctl` reads on the HDD.
+
+Validation:
+- `bash -n early-oom/memory-guard.sh`, `dash -n optimize.sh`, `dash -n toggle-passwordless-sudo.sh`, and `python3 -m json.tool .context/prd_ralph/prd.json` passed.
+- `bash early-oom/memory-guard.sh --help` reported the renamed entrypoint and both supported modes.
+- `bash memory-guard.sh --dry-run --logging-only` completed without host writes.
+- The legacy gate `dash -n scripts/zram-monitor.sh` still fails because that path is absent. This is existing monitor-path divergence, tracked by `US-004`, not caused by the Memory Guard refactor.

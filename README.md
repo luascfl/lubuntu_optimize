@@ -56,14 +56,14 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 
 ## Evidência de congelamentos e desligamentos forçados
 
-- O instalador `early-oom/setup-memory-guard.sh` mantém snapshots de memória, swap, ZRAM, carga e PSI a cada minuto em `/var/log/memory-guard/memory-pressure.log`. Quando há pressão alta, ele também registra os processos com maior RSS.
-- A unit `memory-guard-session-log.service` cria um marcador no começo da sessão e o remove apenas no desligamento limpo. No boot seguinte, um marcador restante gera `UNCLEAN_SHUTDOWN` em `/var/log/memory-guard/session-events.log` e anexa os últimos eventos do EarlyOOM e avisos do kernel do boot anterior em `/var/log/memory-guard/previous-boot-evidence.log`.
-- O sistema não consegue gravar durante um congelamento ou falta de energia. O diagnóstico preserva o último snapshot antes do problema, detecta o boot seguinte como não limpo e conserva os avisos persistidos no journal.
-- A configuração `/etc/systemd/journald.conf.d/90-memory-guard.conf` mantém o journal em disco, limitado a 128 MiB. Os logs do memory guard ficam comprimidos por até 30 rotações diárias, portanto atravessam no mínimo duas sessões.
-- Para adicionar apenas a evidência de congelamentos, sem mudar ZRAM, EarlyOOM, sysctl, pacotes ou componentes externos do Steam:
+- O `early-oom/memory-guard.sh` concentra ZRAM, EarlyOOM e a evidência de congelamentos. Ele mantém snapshots de memória, swap, ZRAM, carga e PSI a cada minuto em `/var/log/memory-guard/memory-pressure.log`; sob pressão alta, também registra os processos com maior RSS.
+- Use os dois scripts nesta ordem:
+  1. `./optimize.sh apply` aplica somente os ajustes persistentes de kernel e zswap.
+  2. `./early-oom/memory-guard.sh` instala e configura ZRAM, EarlyOOM e a pilha de monitoramento. Ele não grava valores `sysctl`.
+- O EarlyOOM prioriza processos `Web Content` e `Isolated Web Co`, protegendo o processo principal do LibreWolf. Com RAM e ZRAM abaixo dos limites `-m 20 -s 15`, ele encerra uma aba pesada antes de o HDD entrar em thrashing.
+- Para adicionar apenas a evidência de congelamentos, sem mudar ZRAM, EarlyOOM ou pacotes:
   ```bash
-  cd /home/lucas/Downloads/lubuntu_optimize/early-oom
-  sudo bash setup-memory-guard.sh --logging-only
+  ./early-oom/memory-guard.sh --logging-only
   ```
 - Depois de um congelamento seguido de desligamento forçado e reinício, verifique:
   ```bash
@@ -113,7 +113,7 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
   - Tenta rodar via `passwordless sudo` (se ativado pelo perfil `tuning`).
   - Se não houver regra passwordless, mas rodar em um terminal, pedirá a senha do `sudo` normalmente.
   - Se não houver terminal interativo (ex: rodando via atalho gráfico), abrirá uma interface (PTY) pedindo a senha.
-- Para aplicar as otimizações persistentes recomendadas (Swappiness=80, Page Cluster=2, Zswap=0), rode:
+- Para aplicar as otimizações persistentes recomendadas (Swappiness=80, Page Cluster=3, Zswap=0), rode:
   ```bash
   ./optimize.sh apply
   ```

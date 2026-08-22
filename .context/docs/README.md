@@ -34,6 +34,7 @@ Use these files as the project source of truth for planning and execution.
 - `systemd/cpugov-performance.service` and the single governance script `scripts/apply-cpugov-performance-service.sh` install, enable, and verify the host CPU governor service at `/etc/systemd/system/cpugov-performance.service`.
 - `zram-monitor.sh` is a duplicate copy of the same script at the repository root.
 - `toggle-passwordless-sudo.sh` toggles a sudoers rule for passwordless host tuning commands or full root access, depending on profile.
+- `optimize.sh` owns persistent kernel and zswap tuning; `early-oom/memory-guard.sh` owns ZRAM provisioning, EarlyOOM policy, and freeze evidence without writing `sysctl` values.
 - `create_and_push_repo.sh` is a large repository publishing helper that is not referenced by the runtime monitoring flow.
 - `mcp_status.txt` is an environment note, not a runtime dependency.
 

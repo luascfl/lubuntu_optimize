@@ -961,7 +961,7 @@ Validation evidence:
 
 ## Open assumptions
 - The low memory Lubuntu laptop profile remains the primary supported environment.
-- Freeze evidence may add one `systemd` session-marker service beside the existing timer and flat logs when `early-oom/setup-memory-guard.sh` is installed.
+- Freeze evidence may add one `systemd` session-marker service beside the existing timer and flat logs when `early-oom/memory-guard.sh` is installed.
 - `create_and_push_repo.sh` remains out of scope for the next implementation story.
 
 ## Freeze evidence installer iteration 23
@@ -1013,3 +1013,13 @@ Date: $(date +%Y-%m-%d)
 - Teste page-cluster=4 piorou o desempenho (124.901).
 - Teste combinado swappiness=80 e page-cluster=3 resultou na melhor marca final sem gaming: 1.916.
 - A configuração otimizada final (swappiness=80, page-cluster=3, zswap=0) foi definida como padrão no \`optimize.sh\`.
+
+## Memory Guard entrypoint refactor
+Date: 2026-08-22
+
+Change applied:
+- Renamed `early-oom/setup-memory-guard.sh` to `early-oom/memory-guard.sh`.
+- The renamed entrypoint owns ZRAM, EarlyOOM and freeze evidence only. It no longer writes `sysctl` values or runs `sysctl --system`; `optimize.sh` remains the single owner of persistent kernel and zswap tuning.
+- Removed `fix_earlyoom.py`; its intended thresholds and child-process matching are declared directly by `memory-guard.sh`.
+- Added `early-oom/memory-guard.sh` to the `tuning` sudo profile and made its self-elevation preserve `--logging-only` and other arguments.
+- Increased `memory-guard-session-log.service` startup timeout to `120s`, which covers slow `journalctl` reads on the HDD.

@@ -120,6 +120,7 @@ Cmnd_Alias OMP_TUNING = \
     ${SCRIPT_DIR}/install-zram-monitor.sh, \
     ${SCRIPT_DIR}/apply-cpugov-performance-service.sh, \
     ${SCRIPT_DIR}/optimize.sh, \
+    ${SCRIPT_DIR}/early-oom/memory-guard.sh, \
     /usr/bin/systemctl start zram-monitor.service, \
     /usr/bin/systemctl restart zram-monitor.service, \
     /usr/bin/systemctl status zram-monitor.service, \

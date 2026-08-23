@@ -1029,3 +1029,26 @@ Validation:
 - `bash early-oom/memory-guard.sh --help` reported the renamed entrypoint and both supported modes.
 - `bash memory-guard.sh --dry-run --logging-only` completed without host writes.
 - The legacy gate `dash -n scripts/zram-monitor.sh` still fails because that path is absent. This is existing monitor-path divergence, tracked by `US-004`, not caused by the Memory Guard refactor.
+
+## Autoresearch, independent kernel tuning
+Date: 2026-08-23
+
+Scope and decision:
+- O usuário manteve `vm.swappiness=80` e `vm.page-cluster=3` como a configuração já estabelecida. As medições de uma retentativa com `swappiness=89` foram sinalizadas como não comparáveis, não substituíram essa decisão e o valor foi restaurado para `80`.
+
+Evidence:
+- O baseline da configuração preservada, na execução dinâmica de 30 segundos com memória disponível mais 500 MiB, foi `5,078,455` microssegundos de `memory_pressure`.
+- Aumentar `vm.min_free_kbytes` de `67584` para `98304` foi confirmado em três medições: `791,979`, `668,894` e `554,369` microssegundos. A mediana, `668,894`, reduziu o valor em 86,8% contra o baseline.
+- `vm.watermark_scale_factor=20` registrou `703,936` microssegundos, pior que a mediana vencedora; o valor `10` foi restaurado.
+- Uma primeira execução do baseline excedeu o timeout sem emitir métrica. A repetição concluiu em 41,3 segundos e foi usada como baseline.
+
+Final configuration:
+- `vm.swappiness=80`
+- `vm.page-cluster=3`
+- `vm.min_free_kbytes=98304`
+- `vm.watermark_scale_factor=10`
+- `zswap=0`
+
+Validation:
+- `dash -n optimize.sh` passou.
+- A leitura runtime confirmou os quatro valores finais via `sysctl`.

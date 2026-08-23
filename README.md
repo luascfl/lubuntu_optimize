@@ -133,6 +133,12 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 - Para restaurar a Ethernet antes de reiniciar, rode `sudo modprobe r8169`.
 - Não transforme o teste em bloqueio permanente do driver antes de observar se a tela preta deixa de ocorrer.
 
+## Limpeza de containers não usados
+
+- Como o host usa apenas Wi-Fi e não usa Docker nem LXC, foram removidos `docker-ce`, `docker-ce-cli`, `containerd.io`, `lxc` e `lxcfs`, inclusive os dados e configurações locais de containers.
+- Os serviços e sockets Docker, containerd e LXC não existem mais. As pontes `docker0` e `lxcbr0` foram removidas da sessão.
+- Para voltar a usar containers, reinstale explicitamente as ferramentas necessárias; nada será iniciado automaticamente.
+
 ## Decisão de Omitir HDD Swap (`/swapfile`)
 
 - Em testes com HDD, transferir do ZRAM para o `/swapfile` quando a RAM lotava (ex: LibreWolf restaurando a sessão) causava *thrashing* profundo (o `swapoff` chegou a demorar mais de 2 minutos).

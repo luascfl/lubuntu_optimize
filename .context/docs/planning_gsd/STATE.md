@@ -1085,3 +1085,14 @@ Evidence:
 Temporary mitigation:
 - With user approval, unloaded `r8169` using `modprobe -r r8169`. The driver is absent, Wi-Fi remains connected, and wired Ethernet is disabled until reboot or `sudo modprobe r8169`.
 - Do not persistently blacklist the driver unless normal use with the temporary mitigation eliminates the black-screen recurrence.
+
+## Container cleanup
+Date: 2026-08-23
+
+User decision:
+- The host does not use Docker or LXC and uses Wi-Fi only. The user explicitly approved a complete purge.
+
+Applied and verified:
+- Purged `docker-ce`, `docker-ce-cli`, `containerd.io`, `lxc` and `lxcfs`, then ran package autoremove and removed their local system data.
+- `docker.service`, `docker.socket`, `containerd.service`, `lxc-net.service`, `lxc.service` and `lxcfs.service` all report `not-found`.
+- Removed the residual `docker0` bridge. The remaining active network path is Wi-Fi, with Tailscale unchanged.

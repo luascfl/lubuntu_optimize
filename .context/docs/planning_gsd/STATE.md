@@ -1052,3 +1052,15 @@ Final configuration:
 Validation:
 - `dash -n optimize.sh` passou.
 - A leitura runtime confirmou os quatro valores finais via `sysctl`.
+
+## Browser and video acceleration
+Date: 2026-08-23
+
+Observed:
+- `vainfo` 2.22.0 validated the Intel iHD VA-API driver 25.3.0 with H.264, HEVC and VP9 decode support.
+- The root ext4 mount already uses `noatime`; the HDD scheduler is already `bfq`.
+- `thermald`, Bluetooth, Avahi and CUPS are active. Bluetooth remains enabled at the user's direction; Avahi and CUPS remain untouched because printer discovery may depend on them.
+
+Applied:
+- The active LibreWolf profile uses the balanced 4 GiB setting: VA-API and hardware video decoding enabled, AV1 disabled, and three content processes.
+- These browser preferences require a normal LibreWolf restart to become active.

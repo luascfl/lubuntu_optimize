@@ -1064,3 +1064,12 @@ Observed:
 Applied:
 - The active LibreWolf profile uses the balanced 4 GiB setting: VA-API and hardware video decoding enabled, AV1 disabled, and three content processes.
 - These browser preferences require a normal LibreWolf restart to become active.
+
+## LibreWolf graphics rollback
+Date: 2026-08-23
+
+Incident and action:
+- After the first LibreWolf restart with the VA-API and reduced-content-process preferences, the desktop reached a black screen and required a forced shutdown.
+- Removed the four added `user.js` preferences immediately: VA-API, hardware video decoding, AV1 disablement, and the three-process cap.
+- The session marker recorded `UNCLEAN_SHUTDOWN` for the prior boot. The preserved EarlyOOM evidence shows memory-pressure kills earlier in that session, but no `i915`, DRM, or GPU-hang evidence. Causality is therefore unconfirmed.
+- Keep the VA-API driver installed for diagnostics, but treat browser hardware video decoding as disabled until a controlled recovery-tested experiment is explicitly requested.

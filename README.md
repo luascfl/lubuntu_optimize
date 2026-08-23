@@ -122,8 +122,8 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 ## LibreWolf e vídeo Intel
 
 - O driver Intel iHD expõe VA-API para H.264, HEVC e VP9 neste notebook. Valide após atualizações com `vainfo`.
-- O perfil LibreWolf de 4 GiB usa `media.ffmpeg.vaapi.enabled=true`, `media.hardware-video-decoding.enabled=true`, `media.av1.enabled=false` e `dom.ipc.processCount=3`. O AV1 fica desativado porque este hardware não o decodifica via VA-API; H.264 e VP9 continuam acelerados.
-- Essas preferências entram em vigor ao reiniciar o LibreWolf. O limite de três processos reduz a memória-base sem concentrar excessivamente as abas.
+- A tentativa de ativar VA-API, decodificação de vídeo por hardware, AV1 desativado e três processos de conteúdo foi revertida após uma tela preta seguida de desligamento forçado. `vainfo` comprova suporte do driver, não estabilidade do LibreWolf neste perfil.
+- Não reative essas preferências sem um teste controlado de reprodução e uma forma rápida de reversão.
 - A raiz ext4 já usa `noatime` e o HDD já usa o scheduler `bfq`; não há ajuste adicional de montagem ou scheduler a aplicar.
 
 ## Decisão de Omitir HDD Swap (`/swapfile`)

@@ -1068,11 +1068,10 @@ Applied:
 ## LibreWolf graphics rollback
 Date: 2026-08-23
 
-- The black screen occurred with QTerminal, tmux and Oh My Pi processes while LibreWolf was not running. The added LibreWolf preferences therefore could not have been active or causal.
-- The last pre-freeze snapshot at `10:38:10` had 1,934 MiB available memory, 1,520 MiB free ZRAM, and zero PSI. It does not support memory thrashing or an EarlyOOM kill as the immediate trigger.
-- The preserved logs show EarlyOOM killing Codex and Node processes earlier in that session under real pressure. They do not establish a cause for the later black screen.
-- The kernel journal has no `i915`, DRM, or GPU-hang event. It does contain high-volume, pre-existing correctable `r8169` PCIe errors; these are a separate lead, not a proven cause.
-- The user reconfirmed the balanced browser profile after reviewing the evidence. VA-API, hardware video decoding, AV1 disabled and three content processes are active in the LibreWolf override file; they take effect after a normal browser restart.
+- A first black screen occurred while LibreWolf was not running, so the browser preferences could not have been causal in that incident.
+- A second unclean shutdown at 18:22 occurred after the user had several Firefox/LibreWolf tabs open. The profile was immediately restored to its defaults by removing VA-API, hardware video decoding, AV1 disablement and the three-content-process override from both `user.js` and `prefs.js`.
+- The latest preserved EarlyOOM measurements immediately before that shutdown showed 1,013 MiB available memory and 2,154 MiB free ZRAM. They do not show a memory exhaustion or EarlyOOM trigger.
+- Do not reactivate those LibreWolf preferences without an explicitly requested controlled reproduction test and a fast rollback path.
 
 ## QTerminal, tmux and Oh My Pi black-screen investigation
 Date: 2026-08-23
@@ -1081,9 +1080,10 @@ Evidence:
 - The pre-freeze snapshot showed 1,934 MiB available memory, 1,520 MiB free ZRAM and zero PSI. No QTerminal, tmux, LXQt, Xorg, OOM, coredump, i915, DRM or GPU-hang event was recorded at the end of the failed boot.
 - The active tmux server owns five windows and 223 MiB RSS. It includes a Bun pane and the Oh My Pi MCP stack. This is material overhead on a 4 GiB host, but the available evidence does not prove it caused the black screen.
 - `r8169` emitted a sustained stream of correctable PCIe errors for the unused Realtek RTL810xE controller. The host is connected through Wi-Fi and `enp1s0` was down.
+- The 18:22 unclean shutdown ended during another `r8169` error storm, including `BadDLLP`, while EarlyOOM still reported 1,013 MiB available memory and 2,154 MiB free ZRAM. This is a strong correlation, not proof of the black-screen cause.
 
 Temporary mitigation:
-- With user approval, unloaded `r8169` using `modprobe -r r8169`. The driver is absent, Wi-Fi remains connected, and wired Ethernet is disabled until reboot or `sudo modprobe r8169`.
+- With user approval, unloaded `r8169` again using `modprobe -r r8169`. The driver is absent, Wi-Fi remains connected, and wired Ethernet is disabled until reboot or `sudo modprobe r8169`.
 - Do not persistently blacklist the driver unless normal use with the temporary mitigation eliminates the black-screen recurrence.
 
 ## Container cleanup

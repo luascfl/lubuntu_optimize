@@ -28,7 +28,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # --- Valores padrão (Decision from iteration 9) ---
-VAL_SWAPPINESS=89
+VAL_SWAPPINESS=80
 VAL_PAGE_CLUSTER=3
 VAL_ZSWAP=0
 VAL_VFS_CACHE_PRESSURE=10

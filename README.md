@@ -126,6 +126,13 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 - As preferências entram em vigor após reiniciar o LibreWolf normalmente. Se a reprodução de vídeo causar artefatos ou nova tela preta, remova as quatro preferências do bloco de overrides em `user.js`.
 - A raiz ext4 já usa `noatime` e o HDD já usa o scheduler `bfq`; não há ajuste adicional de montagem ou scheduler a aplicar.
 
+## Teste de estabilidade da Ethernet
+
+- O controlador Realtek RTL810xE (`r8169`) registrou erros PCIe corretivos em alto volume mesmo com `enp1s0` desligada e Wi-Fi ativo.
+- O teste atual descarregou `r8169` apenas até o próximo boot. A Wi-Fi segue ativa; a Ethernet cabeada fica indisponível durante o teste.
+- Para restaurar a Ethernet antes de reiniciar, rode `sudo modprobe r8169`.
+- Não transforme o teste em bloqueio permanente do driver antes de observar se a tela preta deixa de ocorrer.
+
 ## Decisão de Omitir HDD Swap (`/swapfile`)
 
 - Em testes com HDD, transferir do ZRAM para o `/swapfile` quando a RAM lotava (ex: LibreWolf restaurando a sessão) causava *thrashing* profundo (o `swapoff` chegou a demorar mais de 2 minutos).

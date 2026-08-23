@@ -1073,3 +1073,15 @@ Date: 2026-08-23
 - The preserved logs show EarlyOOM killing Codex and Node processes earlier in that session under real pressure. They do not establish a cause for the later black screen.
 - The kernel journal has no `i915`, DRM, or GPU-hang event. It does contain high-volume, pre-existing correctable `r8169` PCIe errors; these are a separate lead, not a proven cause.
 - The user reconfirmed the balanced browser profile after reviewing the evidence. VA-API, hardware video decoding, AV1 disabled and three content processes are active in the LibreWolf override file; they take effect after a normal browser restart.
+
+## QTerminal, tmux and Oh My Pi black-screen investigation
+Date: 2026-08-23
+
+Evidence:
+- The pre-freeze snapshot showed 1,934 MiB available memory, 1,520 MiB free ZRAM and zero PSI. No QTerminal, tmux, LXQt, Xorg, OOM, coredump, i915, DRM or GPU-hang event was recorded at the end of the failed boot.
+- The active tmux server owns five windows and 223 MiB RSS. It includes a Bun pane and the Oh My Pi MCP stack. This is material overhead on a 4 GiB host, but the available evidence does not prove it caused the black screen.
+- `r8169` emitted a sustained stream of correctable PCIe errors for the unused Realtek RTL810xE controller. The host is connected through Wi-Fi and `enp1s0` was down.
+
+Temporary mitigation:
+- With user approval, unloaded `r8169` using `modprobe -r r8169`. The driver is absent, Wi-Fi remains connected, and wired Ethernet is disabled until reboot or `sudo modprobe r8169`.
+- Do not persistently blacklist the driver unless normal use with the temporary mitigation eliminates the black-screen recurrence.

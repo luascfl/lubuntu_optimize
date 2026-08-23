@@ -122,8 +122,8 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 ## LibreWolf e vídeo Intel
 
 - O driver Intel iHD expõe VA-API para H.264, HEVC e VP9 neste notebook. Valide após atualizações com `vainfo`.
-- A configuração de VA-API foi revertida após uma tela preta durante uma sessão com QTerminal, tmux e processos do Oh My Pi. O LibreWolf não estava em execução, portanto esses ajustes não foram a causa do incidente.
-- `vainfo` comprova suporte do driver, não estabilidade do LibreWolf. Reative as preferências apenas em um teste controlado de reprodução, com uma forma rápida de reversão.
+- A tela preta anterior ocorreu sem LibreWolf em execução e não foi causada por esta política. A pedido do usuário, o perfil equilibrado está ativo: VA-API e decodificação de vídeo por hardware, AV1 desativado e três processos de conteúdo.
+- As preferências entram em vigor após reiniciar o LibreWolf normalmente. Se a reprodução de vídeo causar artefatos ou nova tela preta, remova as quatro preferências do bloco de overrides em `user.js`.
 - A raiz ext4 já usa `noatime` e o HDD já usa o scheduler `bfq`; não há ajuste adicional de montagem ou scheduler a aplicar.
 
 ## Decisão de Omitir HDD Swap (`/swapfile`)

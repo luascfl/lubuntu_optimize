@@ -1072,4 +1072,4 @@ Date: 2026-08-23
 - The last pre-freeze snapshot at `10:38:10` had 1,934 MiB available memory, 1,520 MiB free ZRAM, and zero PSI. It does not support memory thrashing or an EarlyOOM kill as the immediate trigger.
 - The preserved logs show EarlyOOM killing Codex and Node processes earlier in that session under real pressure. They do not establish a cause for the later black screen.
 - The kernel journal has no `i915`, DRM, or GPU-hang event. It does contain high-volume, pre-existing correctable `r8169` PCIe errors; these are a separate lead, not a proven cause.
-- Keep the VA-API driver installed for diagnostics. Browser hardware video decoding remains rolled back pending a controlled, recovery-tested LibreWolf playback test.
+- The user reconfirmed the balanced browser profile after reviewing the evidence. VA-API, hardware video decoding, AV1 disabled and three content processes are active in the LibreWolf override file; they take effect after a normal browser restart.

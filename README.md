@@ -108,12 +108,12 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 
 ## Aplicação de Otimizações de Kernel
 
-- As otimizações de `vm.swappiness`, `vm.page-cluster` e `zswap` foram consolidadas no script unificado `optimize.sh`.
+- As otimizações de `vm.swappiness`, `vm.page-cluster`, `vm.min_free_kbytes` e `zswap` foram consolidadas no script unificado `optimize.sh`.
 - Esse script é autossuficiente e trata a elevação de privilégios automaticamente:
   - Tenta rodar via `passwordless sudo` (se ativado pelo perfil `tuning`).
   - Se não houver regra passwordless, mas rodar em um terminal, pedirá a senha do `sudo` normalmente.
   - Se não houver terminal interativo (ex: rodando via atalho gráfico), abrirá uma interface (PTY) pedindo a senha.
-- Para aplicar as otimizações persistentes recomendadas (Swappiness=80, Page Cluster=3, Zswap=0), rode:
+- Para aplicar as otimizações persistentes recomendadas (Swappiness=80, Page Cluster=3, Min Free=98304 KiB, Zswap=0), rode:
   ```bash
   ./optimize.sh apply
   ```

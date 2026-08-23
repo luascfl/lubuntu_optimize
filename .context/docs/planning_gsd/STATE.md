@@ -1096,3 +1096,14 @@ Applied and verified:
 - Purged `docker-ce`, `docker-ce-cli`, `containerd.io`, `lxc` and `lxcfs`, then ran package autoremove and removed their local system data.
 - `docker.service`, `docker.socket`, `containerd.service`, `lxc-net.service`, `lxc.service` and `lxcfs.service` all report `not-found`.
 - Removed the residual `docker0` bridge. The remaining active network path is Wi-Fi, with Tailscale unchanged.
+
+## VirtualBox cleanup
+Date: 2026-08-23
+
+User decision:
+- The user explicitly approved removal of VirtualBox and all local machines, disks and snapshots.
+
+Applied and verified:
+- Purged `virtualbox`, `virtualbox-dkms`, `virtualbox-ext-pack` and `virtualbox-qt`, then ran package autoremove.
+- Deleted `~/VirtualBox VMs`, including Android and Linux Leve virtual disks and snapshots.
+- VirtualBox system services report `not-found`; no VirtualBox network interface remains.

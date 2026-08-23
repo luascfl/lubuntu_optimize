@@ -139,6 +139,12 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 - Os serviços e sockets Docker, containerd e LXC não existem mais. As pontes `docker0` e `lxcbr0` foram removidas da sessão.
 - Para voltar a usar containers, reinstale explicitamente as ferramentas necessárias; nada será iniciado automaticamente.
 
+## Limpeza do VirtualBox
+
+- Com aprovação explícita, foram removidos `virtualbox`, `virtualbox-dkms`, `virtualbox-ext-pack` e `virtualbox-qt`.
+- As máquinas virtuais, discos e snapshots em `~/VirtualBox VMs` também foram apagados. Isso inclui os discos Android e Linux Leve.
+- Nenhum serviço ou interface de rede VirtualBox permanece ativo. Para voltar a usar VMs, reinstale o VirtualBox e crie ou importe novas máquinas.
+
 ## Decisão de Omitir HDD Swap (`/swapfile`)
 
 - Em testes com HDD, transferir do ZRAM para o `/swapfile` quando a RAM lotava (ex: LibreWolf restaurando a sessão) causava *thrashing* profundo (o `swapoff` chegou a demorar mais de 2 minutos).

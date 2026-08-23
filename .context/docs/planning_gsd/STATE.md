@@ -1068,8 +1068,8 @@ Applied:
 ## LibreWolf graphics rollback
 Date: 2026-08-23
 
-Incident and action:
-- After the first LibreWolf restart with the VA-API and reduced-content-process preferences, the desktop reached a black screen and required a forced shutdown.
-- Removed the four added `user.js` preferences immediately: VA-API, hardware video decoding, AV1 disablement, and the three-process cap.
-- The session marker recorded `UNCLEAN_SHUTDOWN` for the prior boot. The preserved EarlyOOM evidence shows memory-pressure kills earlier in that session, but no `i915`, DRM, or GPU-hang evidence. Causality is therefore unconfirmed.
-- Keep the VA-API driver installed for diagnostics, but treat browser hardware video decoding as disabled until a controlled recovery-tested experiment is explicitly requested.
+- The black screen occurred with QTerminal, tmux and Oh My Pi processes while LibreWolf was not running. The added LibreWolf preferences therefore could not have been active or causal.
+- The last pre-freeze snapshot at `10:38:10` had 1,934 MiB available memory, 1,520 MiB free ZRAM, and zero PSI. It does not support memory thrashing or an EarlyOOM kill as the immediate trigger.
+- The preserved logs show EarlyOOM killing Codex and Node processes earlier in that session under real pressure. They do not establish a cause for the later black screen.
+- The kernel journal has no `i915`, DRM, or GPU-hang event. It does contain high-volume, pre-existing correctable `r8169` PCIe errors; these are a separate lead, not a proven cause.
+- Keep the VA-API driver installed for diagnostics. Browser hardware video decoding remains rolled back pending a controlled, recovery-tested LibreWolf playback test.

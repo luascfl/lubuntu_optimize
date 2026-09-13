@@ -1112,13 +1112,15 @@ Applied and verified:
 Date: 2026-09-13
 
 User decision:
-- Copy every shell and Python script from the local `tmux_qterminal_setup` project into this repository, while preserving the original project and its uncommitted work.
+- Copy every shell and Python script from the local `tmux_qterminal_setup` project into this repository.
+- After the merged scripts were verified and published, the user explicitly approved permanent deletion of the source repository and the redundant `test_py.py` prototype.
 
 Applied:
-- Copied 20 runtime scripts into `tools/tmux-qterminal/`, including tmux/QTerminal, PTY, Topgrade, IceWM, Android MTP, clipboard, keyboard-layout, browser-auth and support utilities.
+- Initially copied 20 runtime scripts into `tools/tmux-qterminal/`, including tmux/QTerminal, PTY, Topgrade, IceWM, Android MTP, clipboard, keyboard-layout, browser-auth and support utilities.
 - Copied `topgrade-weekly.sudoers`, the required companion asset for `setup_topgrade_weekly_timer.sh`.
 - Excluded the source project backups, reports, logs and Markdown notes. Generated backups and runtime reports under the new target path are ignored by Git.
 - Migrated the PTY probe to `pty.fork()` and added bracketed-paste, Backspace and Delete normalization to the wrapper.
+- Deleted `/home/lucas/Downloads/tmux_qterminal_setup` after verification. `tools/tmux-qterminal/test_py.py` was also deleted because its XKB prototype logic is already implemented by `toggle-qwerty-colemak.sh`.
 
 Validation:
 - `bash -n tools/tmux-qterminal/*.sh` and `python3 -m py_compile tools/tmux-qterminal/*.py` passed.

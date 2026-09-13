@@ -149,7 +149,7 @@
         "Preserve the topgrade sudoers asset required by the weekly timer beside its installer",
         "Use a forkpty based PTY probe and wrapper that normalize paste, Backspace and Delete input",
         "Example: the PTY probe reports a child TTY and the wrapper transforms abc plus Backspace plus X into abX",
-        "Negative case: the original tmux_qterminal_setup working tree, including its uncommitted files, is not modified"
+        "Negative case: the source working tree remains unchanged during transfer; it may be deleted only after the integration is validated and the user explicitly authorizes removal"
       ],
       "startedAt": "2026-09-13T00:00:00Z",
       "completedAt": "2026-09-13T00:00:00Z"

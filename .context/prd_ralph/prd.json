@@ -1,21 +1,23 @@
 {
   "version": 1,
   "project": "lubuntu_optimize baseline hardening",
-  "overview": "Transform the current README plus monitor script into a reproducible Lubuntu operations kit that aligns ZRAM configuration, monitors memory pressure, and versions the deployment assets needed to run that monitor safely.",
+  "overview": "Maintain a reproducible, low-overhead Lubuntu operations kit for ZRAM, memory-pressure monitoring, and the desktop session tools used to operate the notebook safely.",
   "goals": [
     "Version every host artifact that the README currently describes only in prose",
     "Keep the solution lightweight for a 4 GiB Lubuntu notebook by using shell and native system tools",
+    "Maintain the integrated tmux, QTerminal and Oh My Pi PTY utilities under one repository path",
     "Add planning and validation artifacts so each change can be executed one story at a time with traceability"
   ],
   "nonGoals": [
     "Build a GUI, dashboard, or background daemon",
-    "General desktop tuning outside the ZRAM and memory pressure scope",
-    "Refactor the repository publishing helper unless a later story explicitly targets it"
+    "Enable, alter or remove host services without an explicit maintainer invocation",
+    "Refactor the repository publishing helper unless a later story explicitly targets repository publishing"
   ],
   "successMetrics": [
     "A maintainer can install the monitor stack from versioned repository files instead of README prose alone",
     "A new session can identify the active milestone and next story from .context artifacts alone",
-    "The repository ends with one canonical monitor script path and documented validation commands"
+    "The repository ends with one canonical monitor script path and documented validation commands",
+    "Desktop session utilities and their required local assets are available under one documented repository path"
   ],
   "openQuestions": [
     "Should the deployment assets target only Lubuntu 25.04 or stay generic for Debian based systems?",
@@ -66,6 +68,9 @@
   "qualityGates": [
     "dash -n scripts/zram-monitor.sh",
     "dash -n zram-monitor.sh",
+    "bash -n tools/tmux-qterminal/*.sh",
+    "python3 -m py_compile tools/tmux-qterminal/*.py",
+    "python3 tools/tmux-qterminal/omp_pty_probe.py",
     "python3 -m json.tool .context/prd_ralph/prd.json"
   ],
   "stories": [
@@ -130,6 +135,24 @@
         "Example: README.md, install assets, and validation commands all point to the same script path",
         "Negative case: no deployment path or documentation should still reference the removed duplicate location"
       ]
+    },
+    {
+      "id": "US-005",
+      "title": "Consolidate tmux and QTerminal setup scripts",
+      "status": "done",
+      "dependsOn": [
+        "US-001"
+      ],
+      "description": "As the maintainer, I want the tmux_qterminal_setup runtime scripts in this repository so the laptop session setup is versioned with its operating documentation.",
+      "acceptanceCriteria": [
+        "Copy every top-level shell and Python runtime script from tmux_qterminal_setup into tools/tmux-qterminal without importing backups, logs or reports",
+        "Preserve the topgrade sudoers asset required by the weekly timer beside its installer",
+        "Use a forkpty based PTY probe and wrapper that normalize paste, Backspace and Delete input",
+        "Example: the PTY probe reports a child TTY and the wrapper transforms abc plus Backspace plus X into abX",
+        "Negative case: the original tmux_qterminal_setup working tree, including its uncommitted files, is not modified"
+      ],
+      "startedAt": "2026-09-13T00:00:00Z",
+      "completedAt": "2026-09-13T00:00:00Z"
     }
   ]
 }

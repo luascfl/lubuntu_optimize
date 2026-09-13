@@ -1,0 +1,4 @@
+# Managed by tools/tmux-qterminal/setup_topgrade_weekly_timer.sh.
+# Permit only the commands Topgrade needs for this scheduled service.
+Cmnd_Alias TOPGRADE_WEEKLY = /usr/bin/apt update,     /usr/bin/apt dist-upgrade -y,     /usr/bin/apt-get update,     /usr/bin/apt-get dist-upgrade -y,     /usr/bin/snap refresh,     /usr/bin/flatpak update --system -y
+lucas ALL=(root) NOPASSWD: TOPGRADE_WEEKLY

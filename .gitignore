@@ -24,3 +24,6 @@ node_modules/
 dist/
 build/
 *.zip
+tools/tmux-qterminal/backups/
+tools/tmux-qterminal/reports/*.log
+tools/tmux-qterminal/reports/omp_clipboard_diag_*.md

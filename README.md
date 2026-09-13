@@ -91,6 +91,16 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
   sudo ./toggle-passwordless-sudo.sh enable --profile full
   ```
 
+## Ferramentas integradas de tmux e QTerminal
+
+- Os scripts do antigo `tmux_qterminal_setup` foram concentrados em `tools/tmux-qterminal/`, preservando o instalador de tmux/QTerminal, ferramentas de PTY do Oh My Pi, Topgrade, IceWM, MTP Android, clipboard e layout de teclado.
+- Aplique ou confira a integração principal com:
+  ```bash
+  tools/tmux-qterminal/setup_tmux_qterminal.sh
+  tools/tmux-qterminal/setup_tmux_qterminal.sh verify
+  ```
+- Os backups gerados pelo instalador e os relatórios operacionais gerados pelas ferramentas permanecem locais e são ignorados pelo Git.
+
 ## Instalação do monitor
 
 - O helper `install-zram-monitor.sh` instala a cópia canônica `zram-monitor.sh` em `/usr/local/bin/zram-monitor.sh`.

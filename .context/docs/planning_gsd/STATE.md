@@ -1144,3 +1144,5 @@ Validation:
 - The current indicator process is `/usr/bin/python3 /home/lucas/.local/bin/dunst-tray-history`.
 - Clicking a notification opens an extracted HTTP(S) URL through `xdg-open`; otherwise the indicator restores it with `history-pop` and invokes Dunst's default action. In both cases, it then removes that history item as read.
 - A `dunstify` action test returned the expected `open` action after `dunstctl action`, confirming that Dunst can dispatch a live application's default action.
+- Entries whose Dunst `appname` is `QTerminal` activate the existing X11 window with `wmctrl -xa qterminal.qterminal` before the history acknowledgement. This fallback is intentionally scoped to that app identity.
+- The bundled `toggle-qwerty-colemak.sh` notifications now emit `notify-send --app-name=QTerminal`, so they receive the terminal-focus behavior.

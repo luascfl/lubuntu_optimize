@@ -154,7 +154,7 @@ open_install_terminal() {
     self="$(script_path)"
 
     if ! command -v qterminal >/dev/null 2>&1; then
-        notify-send "Colemak ABNT2" \
+        notify-send --app-name=QTerminal "Colemak ABNT2" \
             "A instalação precisa de um terminal para pedir a senha do sudo." \
             -i input-keyboard 2>/dev/null || true
         printf 'Erro: execute "%s --install" em um terminal.\n' "$self" >&2
@@ -344,28 +344,28 @@ current_variant="$(setxkbmap -query | sed -n 's/^variant:[[:space:]]*//p')"
 case "$current_variant" in
     "")
         setxkbmap -layout br -variant tarmak_abnt2_1
-        notify-send "Treino Nível 1" "Layout atual: Tarmak ABNT2 1, E" -i input-keyboard
+        notify-send --app-name=QTerminal "Treino Nível 1" "Layout atual: Tarmak ABNT2 1, E" -i input-keyboard
         ;;
     tarmak_abnt2_1)
         setxkbmap -layout br -variant tarmak_abnt2_2
-        notify-send "Treino Nível 2" "Layout atual: Tarmak ABNT2 2, ET" -i input-keyboard
+        notify-send --app-name=QTerminal "Treino Nível 2" "Layout atual: Tarmak ABNT2 2, ET" -i input-keyboard
         ;;
     tarmak_abnt2_2)
         setxkbmap -layout br -variant tarmak_abnt2_3
-        notify-send "Treino Nível 3" "Layout atual: Tarmak ABNT2 3, ETR" -i input-keyboard
+        notify-send --app-name=QTerminal "Treino Nível 3" "Layout atual: Tarmak ABNT2 3, ETR" -i input-keyboard
         ;;
     tarmak_abnt2_3)
         setxkbmap -layout br -variant tarmak_abnt2_4
-        notify-send "Treino Nível 4" "Layout atual: Tarmak ABNT2 4, ETRO" -i input-keyboard
+        notify-send --app-name=QTerminal "Treino Nível 4" "Layout atual: Tarmak ABNT2 4, ETRO" -i input-keyboard
         ;;
     tarmak_abnt2_4)
         setxkbmap -layout br -variant colemak_abnt2
-        notify-send "Teclado alterado" "Layout atual: Colemak ABNT2, Tiago Egas" -i input-keyboard
+        notify-send --app-name=QTerminal "Teclado alterado" "Layout atual: Colemak ABNT2, Tiago Egas" -i input-keyboard
         printf 'Mudou para Colemak ABNT2, Tiago Egas.\n'
         ;;
     *)
         setxkbmap -layout br
-        notify-send "Teclado resetado" "Layout atual: QWERTY, BR ABNT2" -i input-keyboard
+        notify-send --app-name=QTerminal "Teclado resetado" "Layout atual: QWERTY, BR ABNT2" -i input-keyboard
         printf 'Mudou para QWERTY, BR ABNT2.\n'
         ;;
 esac

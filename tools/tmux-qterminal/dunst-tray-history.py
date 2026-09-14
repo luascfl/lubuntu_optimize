@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 import subprocess
 import sys
 from typing import Any
@@ -19,6 +20,9 @@ DUNSTCTL = "dunstctl"
 MAX_VISIBLE_NOTIFICATIONS = 10
 REFRESH_SECONDS = 5
 
+QTERMINAL_APP_NAMES = frozenset({"qterminal"})
+QTERMINAL_WINDOW_CLASS = "qterminal.qterminal"
+
 
 def run_dunstctl(*args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
@@ -28,6 +32,23 @@ def run_dunstctl(*args: str) -> subprocess.CompletedProcess[str]:
         stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+    )
+
+
+def activate_qterminal() -> bool:
+    wmctrl = shutil.which("wmctrl")
+    if wmctrl is None:
+        return False
+
+    return (
+        subprocess.run(
+            [wmctrl, "-xa", QTERMINAL_WINDOW_CLASS],
+            check=False,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode
+        == 0
     )
 
 
@@ -134,6 +155,7 @@ class DunstTrayHistory:
     def open_notification(self, _item: Gtk.MenuItem, entry: dict[str, Any]) -> None:
         notification_id = entry["id"]
         match = re.search(r"https?://\S+", str(entry.get("urls", "")))
+        appname = str(entry.get("appname") or "").casefold()
 
         if match:
             subprocess.Popen(
@@ -143,7 +165,7 @@ class DunstTrayHistory:
                 stderr=subprocess.DEVNULL,
                 start_new_session=True,
             )
-        else:
+        elif appname not in QTERMINAL_APP_NAMES or not activate_qterminal():
             popped = run_dunstctl("history-pop", str(notification_id))
             if popped.returncode == 0:
                 run_dunstctl("action")

@@ -1145,4 +1145,7 @@ Validation:
 - Clicking a notification opens an extracted HTTP(S) URL through `xdg-open`; otherwise the indicator restores it with `history-pop` and invokes Dunst's default action. In both cases, it then removes that history item as read.
 - A `dunstify` action test returned the expected `open` action after `dunstctl action`, confirming that Dunst can dispatch a live application's default action.
 - Entries whose Dunst `appname` is `QTerminal` activate the existing X11 window with `wmctrl -xa qterminal.qterminal` before the history acknowledgement. This fallback is intentionally scoped to that app identity.
-- The bundled `toggle-qwerty-colemak.sh` notifications now emit `notify-send --app-name=QTerminal`, so they receive the terminal-focus behavior.
+- The bundled `toggle-qwerty-colemak.sh` notifications now use `notify-qterminal`, so both their native popups and their history entries focus the terminal.
+- The initial popup-click issue was Dunst's system default `mouse_left_click = close_current`, which only dismisses a notification. The installer now deploys `~/.config/dunst/dunstrc.d/90-popup-clicks.conf` and reloads Dunst with `mouse_left_click = do_action, close_current`.
+- Added `tools/tmux-qterminal/notify-qterminal.sh`. It starts a non-blocking `dunstify` client with a `focus` action; when the popup's left click invokes that action, it focuses `qterminal.qterminal` through `wmctrl`.
+- A live native-popup test first focused Chrome, emitted the helper notification, invoked its Dunst action, and confirmed that the active X11 window became `qterminal.qterminal`.

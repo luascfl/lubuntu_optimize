@@ -4,8 +4,12 @@ set -euo pipefail
 
 readonly script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 readonly source_script="$script_dir/dunst-tray-history.py"
+readonly source_notifier="$script_dir/notify-qterminal.sh"
+readonly source_popup_clicks="$script_dir/dunst-popup-clicks.conf"
 readonly target_home="${TARGET_HOME:-$HOME}"
 readonly target_script="$target_home/.local/bin/dunst-tray-history"
+readonly target_notifier="$target_home/.local/bin/notify-qterminal"
+readonly popup_clicks_config="$target_home/.config/dunst/dunstrc.d/90-popup-clicks.conf"
 readonly startup_file="${ICEWM_STARTUP:-$target_home/.icewm/startup}"
 readonly start_marker="# BEGIN dunst tray history"
 readonly end_marker="# END dunst tray history"
@@ -57,6 +61,9 @@ write_startup() {
 
 $start_marker
 # Dunst mantém o histórico; este ícone da tray permite reler e marcar avisos.
+if command -v dunstctl >/dev/null 2>&1 && [ -r '$popup_clicks_config' ]; then
+  dunstctl reload /etc/xdg/dunst/dunstrc '$popup_clicks_config' >/dev/null 2>&1 || true
+fi
 if [ -x '$target_script' ] && ! pgrep -f '$process_pattern' >/dev/null; then
   '$target_script' >/dev/null 2>&1 &
 fi
@@ -80,12 +87,15 @@ start_indicator() {
 
 main() {
     require_runtime
-    [[ -f "$source_script" ]] || {
-        printf 'Erro: script fonte ausente: %s\n' "$source_script" >&2
+    [[ -f "$source_script" && -f "$source_notifier" && -f "$source_popup_clicks" ]] || {
+        printf 'Erro: arquivos-fonte do Dunst ausentes em %s\n' "$script_dir" >&2
         exit 1
     }
 
     install -D -m 0755 "$source_script" "$target_script"
+    install -D -m 0755 "$source_notifier" "$target_notifier"
+    install -D -m 0644 "$source_popup_clicks" "$popup_clicks_config"
+    dunstctl reload /etc/xdg/dunst/dunstrc "$popup_clicks_config"
     write_startup
     start_indicator
     printf 'Instalação concluída. Clique no ícone para abrir o histórico do Dunst.\n'

@@ -38,8 +38,11 @@ execution:
     - timestamp: "2026-09-14T01:25:40Z"
       phase: E
       action: extended US-006 with QTerminal X11 focus fallback
+    - timestamp: "2026-09-14T01:25:40Z"
+      phase: E
+      action: extended US-006 with native QTerminal popup click action
   last_activity: "2026-09-14T01:25:40Z"
-  resume_context: "US-006 now opens URLs, default actions, and QTerminal windows; M2 / US-002 remains the next queued monitor story"
+  resume_context: "US-006 now handles QTerminal actions from both history and native Dunst popups; M2 / US-002 remains the next queued monitor story"
 
 settings:
   autonomous_mode: true

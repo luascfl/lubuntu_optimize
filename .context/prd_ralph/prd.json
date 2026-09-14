@@ -163,7 +163,7 @@
       ],
       "description": "As the maintainer, I want a lightweight tray interface for Dunst so I can review notifications and mark them as read without replacing the active notification daemon.",
       "acceptanceCriteria": [
-        "Add a GTK X11 tray indicator that reads the current Dunst history and opens each notification's URL, focuses matching QTerminal entries, or invokes the default application action before acknowledging it as read, while also exposing clear-all and Do Not Disturb actions",
+        "Add a GTK X11 tray indicator and native Dunst popup click behavior that read the current history and open each notification's URL, focus matching QTerminal entries, or invoke the default application action before acknowledging it as read, while also exposing clear-all and Do Not Disturb actions",
         "Add an idempotent user-level installer that starts the indicator from IceWM without requiring root or a second notification daemon",
         "Example: a closed test notification appears in Dunst history and can be removed with the same history-rm action used by the indicator",
         "Negative case: the indicator must not modify Dunst configuration or claim org.freedesktop.Notifications"

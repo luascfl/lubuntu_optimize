@@ -25,6 +25,13 @@ readonly LEGACY_MARKER="// qwerty-colemak: Tiago Egas Colemak ABNT2"
 script_path() {
     readlink -f "$0"
 }
+
+notify_qterminal() {
+    local notifier
+    notifier="$(dirname -- "$(script_path)")/notify-qterminal.sh"
+    [[ -x "$notifier" ]] || notifier="/usr/local/bin/notify-qterminal"
+    "$notifier" "$@"
+}
 rules_installed() {
     grep -Eq '^[[:space:]]+colemak_abnt2[[:space:]]+br:' "$XKB_RULES_LST" 2>/dev/null
 }
@@ -154,9 +161,8 @@ open_install_terminal() {
     self="$(script_path)"
 
     if ! command -v qterminal >/dev/null 2>&1; then
-        notify-send --app-name=QTerminal "Colemak ABNT2" \
-            "A instalação precisa de um terminal para pedir a senha do sudo." \
-            -i input-keyboard 2>/dev/null || true
+        notify_qterminal "Colemak ABNT2" \
+            "A instalação precisa de um terminal para pedir a senha do sudo."
         printf 'Erro: execute "%s --install" em um terminal.\n' "$self" >&2
         exit 1
     fi
@@ -289,6 +295,7 @@ install() {
     install_xkb_layouts
     install_xkb_rules
     sudo install -m 755 "$(script_path)" "$TARGET"
+    sudo install -m 755 "$(dirname -- "$(script_path)")/notify-qterminal.sh" /usr/local/bin/notify-qterminal
 
     local variant
     for variant in tarmak_abnt2_1 tarmak_abnt2_2 tarmak_abnt2_3 tarmak_abnt2_4 colemak_abnt2; do
@@ -344,28 +351,28 @@ current_variant="$(setxkbmap -query | sed -n 's/^variant:[[:space:]]*//p')"
 case "$current_variant" in
     "")
         setxkbmap -layout br -variant tarmak_abnt2_1
-        notify-send --app-name=QTerminal "Treino Nível 1" "Layout atual: Tarmak ABNT2 1, E" -i input-keyboard
+        notify_qterminal "Treino Nível 1" "Layout atual: Tarmak ABNT2 1, E"
         ;;
     tarmak_abnt2_1)
         setxkbmap -layout br -variant tarmak_abnt2_2
-        notify-send --app-name=QTerminal "Treino Nível 2" "Layout atual: Tarmak ABNT2 2, ET" -i input-keyboard
+        notify_qterminal "Treino Nível 2" "Layout atual: Tarmak ABNT2 2, ET"
         ;;
     tarmak_abnt2_2)
         setxkbmap -layout br -variant tarmak_abnt2_3
-        notify-send --app-name=QTerminal "Treino Nível 3" "Layout atual: Tarmak ABNT2 3, ETR" -i input-keyboard
+        notify_qterminal "Treino Nível 3" "Layout atual: Tarmak ABNT2 3, ETR"
         ;;
     tarmak_abnt2_3)
         setxkbmap -layout br -variant tarmak_abnt2_4
-        notify-send --app-name=QTerminal "Treino Nível 4" "Layout atual: Tarmak ABNT2 4, ETRO" -i input-keyboard
+        notify_qterminal "Treino Nível 4" "Layout atual: Tarmak ABNT2 4, ETRO"
         ;;
     tarmak_abnt2_4)
         setxkbmap -layout br -variant colemak_abnt2
-        notify-send --app-name=QTerminal "Teclado alterado" "Layout atual: Colemak ABNT2, Tiago Egas" -i input-keyboard
+        notify_qterminal "Teclado alterado" "Layout atual: Colemak ABNT2, Tiago Egas"
         printf 'Mudou para Colemak ABNT2, Tiago Egas.\n'
         ;;
     *)
         setxkbmap -layout br
-        notify-send --app-name=QTerminal "Teclado resetado" "Layout atual: QWERTY, BR ABNT2" -i input-keyboard
+        notify_qterminal "Teclado resetado" "Layout atual: QWERTY, BR ABNT2"
         printf 'Mudou para QWERTY, BR ABNT2.\n'
         ;;
 esac

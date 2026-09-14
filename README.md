@@ -104,7 +104,7 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
   tools/tmux-qterminal/setup-dunst-tray-history.sh
   ```
   Clique em uma notificação para abrir seu destino. Entradas com URL abrem a página pelo navegador. Entradas identificadas como `QTerminal` focam a janela de terminal existente. As demais são restauradas e acionam a ação padrão que o aplicativo registrou no Dunst. O item é então marcado como lido.
-  O script de QTerminal incluído no projeto usa `notify-send --app-name=QTerminal`, permitindo esse foco. Outros scripts precisam emitir o mesmo `app-name` para receber o fallback.
+  O instalador também configura o clique esquerdo do popup do Dunst para executar a ação antes de fechá-lo. As notificações geradas pelo script de QTerminal incluído no projeto usam `notify-qterminal`, que registra essa ação e foca o terminal. Para scripts externos, use `~/.local/bin/notify-qterminal "Título" "Mensagem"`.
 - Os backups gerados pelos instaladores e os relatórios operacionais gerados pelas ferramentas permanecem locais e são ignorados pelo Git.
 
 ## Instalação do monitor

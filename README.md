@@ -103,7 +103,7 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
   ```bash
   tools/tmux-qterminal/setup-dunst-tray-history.sh
   ```
-  Clique no ícone para listar avisos. Cada aviso permite “Mostrar novamente” ou “Marcar como lida”; o menu também oferece limpar o histórico e não perturbe.
+  Clique em uma notificação para abrir seu destino. Entradas com URL abrem a página pelo navegador; as demais são restauradas e acionam a ação padrão que o aplicativo registrou no Dunst. O item é então marcado como lido.
 - Os backups gerados pelos instaladores e os relatórios operacionais gerados pelas ferramentas permanecem locais e são ignorados pelo Git.
 
 ## Instalação do monitor

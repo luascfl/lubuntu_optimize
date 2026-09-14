@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from typing import Any
@@ -122,30 +123,31 @@ class DunstTrayHistory:
         menu.popup_at_pointer(None)
 
     def add_notification_item(self, menu: Gtk.Menu, entry: dict[str, Any]) -> None:
-        notification_id = entry["id"]
         summary = compact(entry.get("summary") or entry.get("appname") or "Sem título")
         body = compact(entry.get("body"), limit=160)
         label = summary if not body else f"{summary}\n{body}"
 
         item = Gtk.MenuItem(label=label)
-        submenu = Gtk.Menu()
-
-        show_again = Gtk.MenuItem(label="Mostrar novamente")
-        show_again.connect("activate", self.show_again, notification_id)
-        submenu.append(show_again)
-
-        mark_read = Gtk.MenuItem(label="Marcar como lida")
-        mark_read.connect("activate", self.mark_read, notification_id)
-        submenu.append(mark_read)
-
-        item.set_submenu(submenu)
+        item.connect("activate", self.open_notification, entry)
         menu.append(item)
 
-    def show_again(self, _item: Gtk.MenuItem, notification_id: int) -> None:
-        run_dunstctl("history-pop", str(notification_id))
-        self.refresh()
+    def open_notification(self, _item: Gtk.MenuItem, entry: dict[str, Any]) -> None:
+        notification_id = entry["id"]
+        match = re.search(r"https?://\S+", str(entry.get("urls", "")))
 
-    def mark_read(self, _item: Gtk.MenuItem, notification_id: int) -> None:
+        if match:
+            subprocess.Popen(
+                ["xdg-open", match.group(0)],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                start_new_session=True,
+            )
+        else:
+            popped = run_dunstctl("history-pop", str(notification_id))
+            if popped.returncode == 0:
+                run_dunstctl("action")
+
         run_dunstctl("history-rm", str(notification_id))
         self.refresh()
 

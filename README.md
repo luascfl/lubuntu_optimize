@@ -93,13 +93,18 @@ Garantir que o kernel esteja usando o mesmo algoritmo de compressão solicitado 
 
 ## Ferramentas integradas de tmux e QTerminal
 
-- Os scripts do antigo `tmux_qterminal_setup` foram concentrados em `tools/tmux-qterminal/`, preservando o instalador de tmux/QTerminal, ferramentas de PTY do Oh My Pi, Topgrade, IceWM, MTP Android, clipboard e layout de teclado.
+- Os scripts do projeto de tmux/QTerminal foram concentrados em `tools/tmux-qterminal/`, preservando o instalador de tmux/QTerminal, ferramentas de PTY do Oh My Pi, Topgrade, IceWM, MTP Android, clipboard e layout de teclado.
 - Aplique ou confira a integração principal com:
   ```bash
   tools/tmux-qterminal/setup_tmux_qterminal.sh
   tools/tmux-qterminal/setup_tmux_qterminal.sh verify
   ```
-- Os backups gerados pelo instalador e os relatórios operacionais gerados pelas ferramentas permanecem locais e são ignorados pelo Git.
+- Para expor o histórico real do Dunst na tray do IceWM, sem instalar um segundo daemon de notificações:
+  ```bash
+  tools/tmux-qterminal/setup-dunst-tray-history.sh
+  ```
+  Clique no ícone para listar avisos. Cada aviso permite “Mostrar novamente” ou “Marcar como lida”; o menu também oferece limpar o histórico e não perturbe.
+- Os backups gerados pelos instaladores e os relatórios operacionais gerados pelas ferramentas permanecem locais e são ignorados pelo Git.
 
 ## Instalação do monitor
 

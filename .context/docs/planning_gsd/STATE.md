@@ -1126,3 +1126,19 @@ Validation:
 - `bash -n tools/tmux-qterminal/*.sh` and `python3 -m py_compile tools/tmux-qterminal/*.py` passed.
 - The PTY probe reported TTY stdin, stdout and stderr with `TERM=xterm-256color`.
 - The wrapper produced `RESULT=abX` from `abc`, Backspace and `X`; a Ctrl-C probe exited with code `130`.
+
+## Dunst tray history
+Date: 2026-09-13
+
+User decision:
+- Keep Dunst as the sole notification daemon and add an IceWM tray interface for its real history, including per-notification read acknowledgement.
+
+Applied:
+- Added `tools/tmux-qterminal/dunst-tray-history.py`, a GTK 3 X11 tray icon using `dunstctl history`, `history-pop`, `history-rm`, `history-clear` and `set-paused`.
+- Added `tools/tmux-qterminal/setup-dunst-tray-history.sh`. It installs the indicator at `~/.local/bin/dunst-tray-history`, maintains an idempotent block in `~/.icewm/startup`, preserves one startup backup and restarts the indicator after an update.
+- Uses `/usr/bin/python3`, `python3-gi` and GTK 3 already installed on the host. No package was installed and no second notification daemon was started.
+
+Validation:
+- The Dunst JSON parser handles its D-Bus variant envelope and notification values.
+- A generated test notification reached history after closure and was removed with `dunstctl history-rm`.
+- The current indicator process is `/usr/bin/python3 /home/lucas/.local/bin/dunst-tray-history`.

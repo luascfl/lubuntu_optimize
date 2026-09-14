@@ -29,8 +29,11 @@ execution:
     - timestamp: "2026-09-13T00:00:00Z"
       phase: E
       action: completed US-005 tmux and QTerminal setup consolidation
+    - timestamp: "2026-09-13T00:00:00Z"
+      phase: E
+      action: completed US-006 Dunst tray history
   last_activity: "2026-09-13T00:00:00Z"
-  resume_context: "US-005 concluded; M2 / US-002 remains the next queued monitor story"
+  resume_context: "US-006 concluded; M2 / US-002 remains the next queued monitor story"
 
 settings:
   autonomous_mode: true

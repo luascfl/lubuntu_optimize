@@ -1,0 +1,10 @@
+#!/bin/sh
+# Launch Google Chrome with the persistent automation profile and CDP on 127.0.0.1:9222.
+# Chrome 136+ ignores --remote-debugging-port on the default data dir, so a dedicated
+# --user-data-dir is required. Override with CHROME_CDP_PROFILE / CHROME_CDP_PORT.
+PROFILE="${CHROME_CDP_PROFILE:-$HOME/.omp/chrome-persistent-profile}"
+PORT="${CHROME_CDP_PORT:-9222}"
+exec /usr/bin/google-chrome-stable \
+  --remote-debugging-port="$PORT" \
+  --user-data-dir="$PROFILE" \
+  "$@"

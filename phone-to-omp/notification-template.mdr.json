@@ -1,0 +1,242 @@
+{
+  "exportAppVersion": 601000003,
+  "exportFormat": 2,
+  "macroList": [
+    {
+      "aiGenerated": 0,
+      "breakpoints": [],
+      "disabledTimestamp": 0,
+      "exportedActionBlocks": [],
+      "exportedSharedScenes": [],
+      "forceEvenIfNotEnabledTimestamp": 0,
+      "isActionBlock": false,
+      "isExtra": false,
+      "isFavourite": false,
+      "lastEditedTimestamp": 0,
+      "localVariableSeparators": [],
+      "localVariables": [
+        {
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isLocalVar": true,
+          "isSecure": false,
+          "m_booleanValue": false,
+          "m_decimalValue": 0.0,
+          "m_intValue": 0,
+          "m_name": "omp_text",
+          "m_stringValue": "",
+          "m_type": 2,
+          "supportsInput": false,
+          "supportsOutput": true
+        }
+      ],
+      "localVarsAlphabetical": true,
+      "loggingLevel": 0,
+      "m_GUID": -8986629719679347567,
+      "m_actionList": [
+        {
+          "requestConfig": {
+            "allFilesAccessPath": "",
+            "allowAnyCertificate": false,
+            "basicAuthEnabled": false,
+            "basicAuthPassword": "",
+            "basicAuthUsername": "",
+            "blockNextAction": false,
+            "clientCertEnabled": false,
+            "clientCertKeyStoreDisplayName": "",
+            "clientCertKeyStoreUri": "",
+            "clientCertPassword": "",
+            "contentBodyDynamicFileName": "",
+            "contentBodyFileDisplayName": "",
+            "contentBodyFileUri": "",
+            "contentBodyFolderDisplayName": "",
+            "contentBodyFolderUri": "",
+            "contentBodySource": 0,
+            "contentBodyText": "{lv=omp_text}",
+            "contentType": "text/plain",
+            "followRedirects": false,
+            "headerParams": [
+              {
+                "paramName": "X-Token",
+                "paramValue": "__OMP_TOKEN__"
+              },
+              {
+                "paramName": "Content-Type",
+                "paramValue": "text/plain; charset=utf-8"
+              }
+            ],
+            "localFileUri": "",
+            "maxTotalDurationSeconds": 15,
+            "prettifyJson": false,
+            "proxyEnabled": false,
+            "proxyHost": "",
+            "proxyPort": 8080,
+            "proxyType": 0,
+            "queryParams": [],
+            "requestTimeOutSeconds": 10,
+            "requestType": 1,
+            "saveResponseAllFilesAccessPath": "",
+            "saveResponseFileName": "",
+            "saveResponseFolderPathDisplayName": "",
+            "saveResponseFolderPathUri": "",
+            "saveResponseType": 0,
+            "saveResponseUseAllFilesAccess": false,
+            "saveReturnCodeToVariable": false,
+            "saveReturnHeadersToVariable": false,
+            "urlToOpen": "http://__OMP_HOST__:__OMP_PORT__/",
+            "useAllFilesAccess": false,
+            "useLocalFileUri": false,
+            "useStaticContentBodyFile": true
+          },
+          "disableLogging": false,
+          "m_SIGUID": -5825117722453057744,
+          "m_classType": "HttpRequestAction",
+          "m_comment": "",
+          "m_constraintList": [
+            {
+              "m_not": false,
+              "m_siGuidThatInvoked": -5874448926712696680,
+              "m_triggerName": "MacroDroid Variable Change: omp_text (Any Change)",
+              "disableLogging": false,
+              "m_SIGUID": -4782570718944655564,
+              "m_classType": "TriggerThatInvokedConstraint",
+              "m_constraintList": [],
+              "m_isDisabled": false,
+              "m_isOrCondition": false
+            }
+          ],
+          "m_isDisabled": false,
+          "m_isOrCondition": false
+        },
+        {
+          "autoExpand": true,
+          "blockNextAction": false,
+          "dimBackground": true,
+          "disableHtml": false,
+          "displayOverStatusBar": false,
+          "iconText": "",
+          "iconType": 0,
+          "liveNotification": false,
+          "m_backgroundColor": -16777216,
+          "m_iconBgColor": -769226,
+          "m_imageResourceId": 0,
+          "m_macroGUIDToRun": 0,
+          "m_notificationChannelType": 0,
+          "m_notificationSubject": "Dictation to omp",
+          "m_notificationText": "Tap Dictate/send. Only confirmed text is sent to the PC.",
+          "m_overwriteExisting": false,
+          "m_priority": 0,
+          "m_ringtoneIndex": 0,
+          "m_ringtoneName": "Default",
+          "m_runMacroWhenPressed": false,
+          "m_textColor": -1,
+          "maintainSpaces": false,
+          "notificationActionButtons": [
+            {
+              "actionClassType": "SetVariableAction",
+              "actionJson": "{\"booleanDictionaryKeys\":{\"keys\":[]},\"dictionaryKeys\":[],\"dictionaryOrArrayType\":-1,\"existingManualKeyType\":0,\"m_booleanInvert\":false,\"m_darkMode\":0,\"m_doubleRandomMax\":0.0,\"m_doubleRandomMin\":0.0,\"m_falseLabel\":\"False\",\"m_intExpression\":false,\"m_intRandom\":false,\"m_intRandomMax\":0,\"m_intRandomMin\":0,\"m_intValueDecrement\":false,\"m_intValueIncrement\":false,\"m_newBooleanValue\":false,\"m_newDoubleValue\":0.0,\"m_newIntValue\":0,\"m_newStringValue\":\"\",\"m_trueLabel\":\"True\",\"m_userPrompt\":true,\"m_userPromptEmptyAtStart\":false,\"m_userPromptMessage\":\"\",\"m_userPromptPassword\":false,\"m_userPromptPasswordToggle\":false,\"m_userPromptShowCancel\":true,\"m_userPromptStopAfterCancel\":true,\"m_userPromptTitle\":\"Dictate to omp\",\"m_variable\":{\"dictionary\":{\"entries\":[],\"isArray\":false,\"variableType\":4,\"type\":\"Dictionary\"},\"isActionBlockWorkingVar\":true,\"isLocalVar\":true,\"isSecure\":false,\"m_booleanValue\":false,\"m_decimalValue\":0.0,\"m_intValue\":0,\"m_name\":\"omp_text\",\"m_stringValue\":\"\",\"m_type\":2,\"supportsInput\":false,\"supportsOutput\":true},\"disableLogging\":false,\"m_SIGUID\":-7952642020158593526,\"m_classType\":\"SetVariableAction\",\"m_constraintList\":[],\"m_isDisabled\":false,\"m_isOrCondition\":false}",
+              "actionName": "Set Local Variable (String)",
+              "clearOnPress": false,
+              "label": "Dictate/send",
+              "macroGuid": 0
+            },
+            {
+              "actionClassType": "DisableMacroAction",
+              "actionJson": "{\"getByName\":false,\"m_GUID\":111,\"m_enable\":true,\"m_macroName\":\"[This Macro]\",\"m_state\":1,\"m_userPromptTitle\":\"Enable/Disable macro\",\"disableLogging\":false,\"m_SIGUID\":-6822365262439350605,\"m_classType\":\"DisableMacroAction\",\"m_constraintList\":[],\"m_isDisabled\":false,\"m_isOrCondition\":false}",
+              "actionName": "Disable macro",
+              "clearOnPress": true,
+              "label": "Disable",
+              "macroGuid": 0
+            }
+          ],
+          "notificationChannelName": "Notification action",
+          "notificationIdString": "8765",
+          "notificatonId": 8765,
+          "persistentNotification": true,
+          "preventAndroid16Grouping": false,
+          "preventBackButtonClosing": false,
+          "preventRemovalByBin": false,
+          "reshowIfDismissed": false,
+          "showAsOverlayOption": 1,
+          "yPosition": 0.5,
+          "disableLogging": false,
+          "m_SIGUID": -7489024569921320681,
+          "m_classType": "NotificationAction",
+          "m_constraintList": [],
+          "m_isDisabled": false,
+          "m_isOrCondition": false
+        }
+      ],
+      "m_category": "Uncategorized",
+      "m_completed": true,
+      "m_constraintList": [],
+      "m_description": "Send only confirmed notification dialog text to omp over Tailscale. Never press Enter.",
+      "m_descriptionOpen": false,
+      "m_enabled": false,
+      "m_excludeLog": false,
+      "m_headingColor": 0,
+      "m_isOrCondition": false,
+      "m_name": "Dictation to omp",
+      "m_triggerList": [
+        {
+          "anyDictionaryKeyChange": false,
+          "checkCase": false,
+          "dictionaryKeys": {
+            "keys": []
+          },
+          "dictionaryType": 2,
+          "enableRegex": false,
+          "m_anyValueChange": true,
+          "m_booleanValue": false,
+          "m_doubleValue": 0.0,
+          "m_intCompareVariable": false,
+          "m_intGreaterThan": false,
+          "m_intLessThan": false,
+          "m_intNotEqual": false,
+          "m_intValue": 0,
+          "m_stringComparisonType": 0,
+          "m_stringEqual": true,
+          "m_stringValue": "",
+          "m_variable": {
+            "dictionary": {
+              "entries": [],
+              "isArray": false,
+              "variableType": 4,
+              "type": "Dictionary"
+            },
+            "isActionBlockWorkingVar": true,
+            "isLocalVar": true,
+            "isSecure": false,
+            "m_booleanValue": false,
+            "m_decimalValue": 0.0,
+            "m_intValue": 0,
+            "m_name": "omp_text",
+            "m_stringValue": "",
+            "m_type": 2,
+            "supportsInput": false,
+            "supportsOutput": true
+          },
+          "disableLogging": false,
+          "m_SIGUID": -5874448926712696680,
+          "m_classType": "VariableTrigger",
+          "m_constraintList": [],
+          "m_isDisabled": false,
+          "m_isOrCondition": false
+        },
+        {
+          "disableLogging": false,
+          "m_SIGUID": -8738806517830962732,
+          "m_classType": "MacroEnabledTrigger",
+          "m_constraintList": [],
+          "m_isDisabled": false,
+          "m_isOrCondition": false
+        }
+      ]
+    }
+  ]
+}
